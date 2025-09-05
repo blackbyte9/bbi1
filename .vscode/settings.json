@@ -1,0 +1,31 @@
+{
+  "cSpell.ignorePaths": [
+    "data/**",
+    "node_modules/**",
+    "**/*.css",
+    "prisma/**",
+    "tsconfig.json",
+    "package.json",
+    "package-lock.json",
+  ],
+  "cSpell.words": ["Bonanz", "Bonanzbar"],
+  "editor.formatOnSave": false,
+  // Enable per-language
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.formatOnSave": true
+  },
+  "WillLuke.nextjs.addTypesOnSave": true,
+  "WillLuke.nextjs.hasPrompted": true
+}
