@@ -1,0 +1,12 @@
+{
+    "cSpell.ignorePaths": [
+    "data/**",
+    "node_modules/**",
+    "**/*.css",
+    "prisma/**",
+    "*.json"
+  ],
+    "cSpell.words": [
+        "Bonanzbar"
+    ]
+}
