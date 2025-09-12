@@ -18,6 +18,8 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "src/generated/**",
+      "prisma/**",
     ],
   },
   {
@@ -27,8 +29,8 @@ const eslintConfig = [
       "no-duplicate-imports": "error",
       "no-console": "warn", // Allow console statements, but warn about them
       "no-debugger": "warn", // Allow debugger statements, but warn about them
-    }
-  }
+    },
+  },
 ];
 
 export default eslintConfig;
