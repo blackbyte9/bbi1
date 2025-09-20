@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { NavBar } from "@/components/nav";
 
 export const metadata: Metadata = {
   title: "Bonanzbar Bar Inventur",
@@ -15,15 +16,13 @@ export default function RootLayout({
     <html lang="de">
       <body>
         <div className="flex flex-col h-screen justify-between">
-        <header className="sticky top-0 row-start-1 flex gap-[24px] flex-wrap items-center justify-center bg-red-700 text-white p-4">
-          <h1 className="text-2xl font-bold">Bonanzbar Bar Inventur</h1>
-        </header>
-        <main className="mb-auto min-h-screen p-12 flex flex-col items-center gap-16 bg-gray-400">
-          {children}
-        </main>
-        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-          @Bonanzbar 2025
-        </footer>
+          <NavBar />
+          <main className="mb-auto min-h-screen p-12 flex flex-col items-center gap-16 bg-gray-400">
+            {children}
+          </main>
+          <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+            @Bonanzbar 2025
+          </footer>
         </div>
       </body>
     </html>
