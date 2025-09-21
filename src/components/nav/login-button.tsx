@@ -6,7 +6,7 @@ export const LoginButton = () => {
     const router = useRouter();
 
     const onClick = () => {
-        router.push("/auth/login");
+        router.push("/api/auth/signin");
     };
     return (
         <span onClick={onClick} className="cursor-pointer">

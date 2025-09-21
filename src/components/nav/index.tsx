@@ -1,6 +1,5 @@
 import { LoginButton } from "./login-button";
 
-
 export function NavBar() {
   return (
     <header className="sticky top-0 row-start-1 flex gap-[24px] flex-wrap items-center justify-center bg-red-700 text-white p-4">
