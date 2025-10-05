@@ -1,72 +1,119 @@
-import { cn } from "@/shadcn/utils"
-import { Button } from "@/shadcn/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/shadcn/components/ui/card"
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from "@/shadcn/components/ui/field"
-import { Input } from "@/shadcn/components/ui/input"
+"use client";
 
-export default function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
-  return (
-    <div className="w-full max-w-sm">
-      <div className={cn("flex flex-col gap-6", className)} {...props}>
-        <Card>
-          <CardHeader>
-            <CardTitle>Login to your account</CardTitle>
-            <CardDescription>
-              Enter your email below to login to your account
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form>
-              <FieldGroup>
-                <Field>
-                  <FieldLabel htmlFor="email">Email</FieldLabel>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="m@example.com"
-                    required
-                  />
-                </Field>
-                <Field>
-                  <div className="flex items-center">
-                    <FieldLabel htmlFor="password">Password</FieldLabel>
-                    <a
-                      href="#"
-                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                    >
-                      Forgot your password?
-                    </a>
-                  </div>
-                  <Input id="password" type="password" required />
-                </Field>
-                <Field>
-                  <Button type="submit">Login</Button>
-                  <Button variant="outline" type="button">
-                    Login with Google
-                  </Button>
-                  <FieldDescription className="text-center">
-                    Don&apos;t have an account? <a href="#">Sign up</a>
-                  </FieldDescription>
-                </Field>
-              </FieldGroup>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  )
+import { Button } from "@/shadcn/components/ui/button";
+import {
+	Card,
+	CardContent,
+	CardHeader,
+	CardTitle,
+	CardDescription,
+} from "@/shadcn/components/ui/card";
+import { Input } from "@/shadcn/components/ui/input";
+import { Label } from "@/shadcn/components/ui/label";
+import { Checkbox } from "@/shadcn/components/ui/checkbox";
+import { useState, useTransition } from "react";
+import { Loader2 } from "lucide-react";
+import { signIn } from "@/lib/auth/client";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+import { getCallbackURL } from "@/lib/shared";
+
+export default function SignIn() {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [loading, startTransition] = useTransition();
+	const [rememberMe, setRememberMe] = useState(false);
+	const router = useRouter();
+	const params = useSearchParams();
+
+	return (
+		<Card className="max-w-md rounded-none">
+			<CardHeader>
+				<CardTitle className="text-lg md:text-xl">Sign In</CardTitle>
+				<CardDescription className="text-xs md:text-sm">
+					Enter your email below to login to your account
+				</CardDescription>
+			</CardHeader>
+			<CardContent>
+				<div className="grid gap-4">
+					<div className="grid gap-2">
+						<Label htmlFor="email">Email</Label>
+						<Input
+							id="email"
+							type="email"
+							placeholder="m@example.com"
+							required
+							onChange={(e) => {
+								setEmail(e.target.value);
+							}}
+							value={email}
+						/>
+					</div>
+
+					<div className="grid gap-2">
+						<div className="flex items-center">
+							<Label htmlFor="password">Password</Label>
+							<Link
+								href="/forget-password"
+								className="ml-auto inline-block text-sm underline"
+							>
+								Forgot your password?
+							</Link>
+						</div>
+
+						<Input
+							id="password"
+							type="password"
+							placeholder="password"
+							autoComplete="password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+						/>
+					</div>
+
+					<div className="flex items-center gap-2">
+						<Checkbox
+							id="remember"
+							onClick={() => {
+								setRememberMe(!rememberMe);
+							}}
+						/>
+						<Label htmlFor="remember">Remember me</Label>
+					</div>
+
+					<Button
+						type="submit"
+						className="w-full flex items-center justify-center"
+						disabled={loading}
+						onClick={async () => {
+							startTransition(async () => {
+								await signIn.email(
+									{ email, password, rememberMe },
+									{
+										// eslint-disable-next-line @typescript-eslint/no-unused-vars
+										onSuccess(_context) {
+											toast.success("Successfully signed in");
+											router.push(getCallbackURL(params));
+										},
+										onError(context) {
+											toast.error(context.error.message);
+										},
+									},
+								);
+							});
+						}}
+					>
+						<div className="flex items-center justify-center w-full relative">
+							{loading ? (
+								<Loader2 size={16} className="animate-spin" />
+							) : (
+								"Login"
+							)}
+						</div>
+					</Button>
+				</div>
+			</CardContent>
+		</Card>
+	);
 }
