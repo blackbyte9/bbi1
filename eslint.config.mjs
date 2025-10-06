@@ -20,7 +20,7 @@ const eslintConfig = [
       "next-env.d.ts",
       "src/generated/**",
       "prisma/**",
-      "shadcn/**",
+      "src/shadcn/**",
     ],
   },
   {
