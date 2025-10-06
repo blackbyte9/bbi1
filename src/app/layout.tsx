@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
 import { NavBar } from "@/components/nav";
+import { Toaster } from "sonner";
+import { Providers } from "@/components/auth/providers";
 
 export const metadata: Metadata = {
   title: "Bonanzbar Bar Inventur",
@@ -16,15 +18,18 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body>
-        <div className="flex flex-col h-screen justify-between">
-          <NavBar />
-          <main className="mb-auto min-h-screen p-12 flex flex-col items-center gap-16 bg-gray-400">
-            {children}
-          </main>
-          <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-            @Bonanzbar 2025
-          </footer>
-        </div>
+        <Providers>
+          <div className="flex flex-col h-screen justify-between">
+            <NavBar />
+            <Toaster />
+            <main className="mb-auto min-h-screen p-12 flex flex-col items-center gap-16 bg-gray-400">
+              {children}
+            </main>
+            <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+              @Bonanzbar 2025
+            </footer>
+          </div>
+        </Providers>
       </body>
     </html>
   );
