@@ -20,5 +20,6 @@ export const config = {
     // Protected routes
     matcher: [
         "/account/settings",
-        "/api/test"]
+        "/api/test",
+        "/test/:path*"]
 };
